@@ -60,7 +60,21 @@ export default function TableauCandidatures({ candidatures, onSupprimer, onModif
                 </span>
               </td>
               <td className="px-4 py-3 align-middle">{c.notes}</td>
-              <td className="px-4 py-3 align-middle">{c.screenshot_url && <a href={`/${c.screenshot_url}`} target="_blank" rel="noopener noreferrer" className="text-indigo-600 underline">Voir</a>}</td>
+              <td className="px-4 py-3 align-middle text-center">
+                {c.screenshot_url && (
+                  <a 
+                    href={`http://localhost:3001/${c.screenshot_url}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-block hover:opacity-70 transition"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </a>
+                )}
+              </td>
               <td className="px-4 py-3 flex flex-col gap-2 min-w-[120px]">
                 <button onClick={()=>onSupprimer(c.id)} className="bg-red-100 text-red-700 rounded-lg px-2 py-1 font-semibold hover:bg-red-200 transition">Supprimer</button>
                 <select value={c.statut} onChange={e=>onModifierStatut(c.id,e.target.value)} className="border border-gray-300 rounded-lg px-2 py-1 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition">

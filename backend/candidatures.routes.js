@@ -46,9 +46,11 @@ router.post('/', upload.single('screenshot'), async (req, res) => {
   let screenshot_url = null;
   if (req.file) {
     const ext = path.extname(req.file.originalname);
-    const newPath = path.join('uploads', req.file.filename + ext);
+    const newFilename = req.file.filename + ext;
+    const newPath = path.join('uploads', newFilename);
     fs.renameSync(req.file.path, newPath);
-    screenshot_url = newPath;
+    // Utilise des slashes pour l'URL (compatible web)
+    screenshot_url = `uploads/${newFilename}`;
   }
   
   const result = await pool.query(
